@@ -1,4 +1,4 @@
-var Firebase = require('firebase');
+var Firebase = require('firebase')
 
 /**
  * The Botkit firebase driver
@@ -31,7 +31,8 @@ module.exports = function(config) {
         users: {
             get: get(usersRef),
             save: save(usersRef),
-            all: all(usersRef)
+            all: all(usersRef),
+            push: push(usersRef)
         }
     };
 };
@@ -90,4 +91,19 @@ function all(firebaseRef) {
             cb(null, list);
         }
     };
+}
+
+/**
+ * Given a firebase ref, will return a function that will push an object.
+ *
+ * @param {Object} firebaseRef A reference to the firebase Object
+ * @param {Object} obj the object you want to push
+ * @returns {Function} The push function
+ */
+function push (firebaseRef) {
+    return function (data, entry, cb) {
+        var ref = firebaseRef.child(data)
+        entry['created_at'] = Firebase.ServerValue.TIMESTAMP
+        ref.push(entry, cb)
+    }
 }
