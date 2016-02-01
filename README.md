@@ -9,7 +9,7 @@ Then pass the returned storage when creating your Botkit controller. Botkit will
 
 Make sure everything you store has an `id` property, that's what you'll use to look it up later.
 
-```
+```js
 var Botkit = require('botkit'),
     firebaseStorage = require('botkit-storage-firebase')({firebase_uri: '...'}),
     controller = Botkit.slackbot({
@@ -17,7 +17,7 @@ var Botkit = require('botkit'),
     });
 ```
 
-```
+```js
 // then you can use the Botkit storage api, make sure you have an id property
 var beans = {id: 'cool', beans: ['pinto', 'garbanzo']};
 controller.storage.teams.save(beans);
